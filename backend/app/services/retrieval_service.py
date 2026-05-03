@@ -36,3 +36,29 @@ class RetrievalService:
         except Exception as e:
             logger.error(f"Retrieval failed: {str(e)}", exc_info=True)
             raise
+
+
+    def _format_results(self, results):
+        formatted = []
+
+        for r in results:
+            formatted.append({
+                "text": r["text"],
+                "source": r["metadata"].get("source"),
+                "document_id": r["metadata"].get("document_id"),
+                "score": r["score"]
+            })
+
+        return formatted
+    
+    def _deduplicate(self, results):
+            seen = set()
+            unique = []
+
+            for r in results:
+                key = r["text"][:100]
+                if key not in seen:
+                    seen.add(key)
+                    unique.append(r)
+
+            return unique
