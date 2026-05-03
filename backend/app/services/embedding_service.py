@@ -3,24 +3,36 @@ from typing import List
 import time
 import os
 from dotenv import load_dotenv
+from app.utils.logger import setup_logger
+import time
 
 load_dotenv()
 
+
+logger = setup_logger("embedding_service")
 
 class EmbeddingService:
     def __init__(self, model: str = "text-embedding-3-small"):
         self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         self.model = model
 
-    def embed_text(self, text: str) -> List[float]:
-        text = self._clean_text(text)
+    def embed_text(self, text: str):
+        start = time.time()
 
-        print(f"embedding.text: {text}")
-        response = self.client.embeddings.create(
-            model=self.model,
-            input=text
-        )
-        return response.data[0].embedding
+        try:
+            response = self.client.embeddings.create(
+                model=self.model,
+                input=text
+            )
+
+            duration = time.time() - start
+            logger.info(f"Single embedding generated in {duration:.2f}s")
+
+            return response.data[0].embedding
+
+        except Exception as e:
+            logger.error("Embedding failed", exc_info=True)
+            raise
 
     def embed_batch(self, texts: List[str], batch_size: int = 100) -> List[List[float]]:
         texts = [self._clean_text(t) for t in texts]
