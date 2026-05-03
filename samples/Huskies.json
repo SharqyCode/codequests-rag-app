@@ -1,0 +1,29 @@
+{
+  "breed": "Siberian Husky",
+  "origin": "Northeast Asia",
+  "classification": "Working Group",
+  "physical_characteristics": {
+    "size": "Medium",
+    "coat": "Thick double coat, highly cold-resistant",
+    "eye_color": "Blue, brown, or heterochromatic (one of each)",
+    "tail": "Brush-like, fox-type tail",
+    "average_weight": {
+      "male": "20-27 kg",
+      "female": "16-23 kg"
+    }
+  },
+  "temperament": [
+    "Outgoing",
+    "Mischievous",
+    "Loyal",
+    "High-energy",
+    "Independent"
+  ],
+  "traits": {
+    "vocalization": "Known for 'talking', howling, and baying rather than typical barking.",
+    "exercise_needs": "Extremely high; bred for endurance and long-distance sled pulling.",
+    "intelligence": "Highly intelligent but can be stubborn, often requiring consistent training.",
+    "social_nature": "Typically friendly with humans and other dogs, reflecting their history as pack animals."
+  },
+  "historical_context": "Originally developed by the Chukchi people for transportation across vast arctic terrains."
+}
