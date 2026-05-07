@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from app.dependencies import vector_db
 
 router = APIRouter(prefix="/api/docs", tags=["Documents"])

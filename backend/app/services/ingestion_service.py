@@ -70,3 +70,54 @@ class IngestionService:
                 logger.error(f"Skipping file {file.filename} due to error")
 
         return document_ids
+    
+    def ingest_external_source(self, source_type: str, data: list) -> str:
+  
+
+        document_id = str(uuid.uuid4())
+
+        # Convert structured data → flat text
+        text_blocks = []
+
+        for item in data:
+            if source_type == "slack":
+                text_blocks.append(
+                    f"{item.get('user', 'unknown')} said: {item.get('message', '')}"
+                )
+            elif source_type == "notion":
+                text_blocks.append(
+                    f"{item.get('title', '')}\n{item.get('content', '')}"
+                )
+            else:
+                # fallback (generic JSON flatten)
+                text_blocks.append(" ".join(str(v) for v in item.values()))
+
+        full_text = "\n\n".join(text_blocks)
+
+        print("\n--- EXTERNAL TEXT ---")
+        print(full_text[:500])
+        
+        if not full_text.strip():
+            raise ValueError("Empty source data")
+
+        # 🔥 reuse pipeline
+        chunks = self.chunker.chunk(full_text)
+
+        chunk_records = []
+        for chunk in chunks:
+            chunk_records.append({
+                "id": str(uuid.uuid4()),
+                "document_id": document_id,
+                "text": chunk,
+                "source": f"{source_type}_data"
+            })
+
+        texts = [c["text"] for c in chunk_records]
+        embeddings = self.embedding_service.embed_batch(texts)
+
+        for i, emb in enumerate(embeddings):
+            chunk_records[i]["embedding"] = emb
+
+        self.vector_db.insert_chunks(chunk_records)
+
+        return document_id
