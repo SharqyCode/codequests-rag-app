@@ -302,14 +302,6 @@ backend/app/data/chroma
 
 Deleting this directory or calling `DELETE /api/docs/truncate` removes indexed vector data. The `backend/app/db/postgres.py` and `backend/app/db/models.py` files are placeholders; the current application flow uses ChromaDB directly and does not yet use Postgres.
 
-## Current Gaps
-
-- `AIService` calls helper methods that are not implemented yet: `_build_context`, `_build_prompt`, `_call_llm`, `_extract_sources`, and `_estimate_confidence`.
-- `RetrievalService` calls `_deduplicate` and `_format_results`, but those helper methods are not implemented yet.
-- `backend/app/api/docs.py` raises `HTTPException` without importing it.
-- `POST /api/ingest/source` calls `ingest_external_source`, which is not implemented in `IngestionService`.
-- The frontend API types do not fully match current backend response wrappers for uploads and document listing.
-
 ## Development Notes
 
 - Run backend commands from `backend/` so imports like `app.main` resolve correctly.
