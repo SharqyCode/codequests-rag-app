@@ -125,3 +125,33 @@ class AIService:
             "sources": self._extract_sources(retrieved_chunks),
             "confidence": self._estimate_confidence(retrieved_chunks)
         }
+    
+    def stream_answer(self, prompt: str):
+        stream = self.client.chat.completions.create(
+            model=self.model,
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.2,
+            stream=True
+        )
+
+        for chunk in stream:
+            delta = chunk.choices[0].delta.content
+
+            if delta:
+                yield delta
+
+    def stream_answer_response(
+        self,
+        query: str,
+        retrieved_chunks: List[Dict]
+    ):
+        if not retrieved_chunks:
+            yield "I don't know."
+            return
+
+        context = self._build_context(retrieved_chunks)
+        prompt = self._build_prompt(query, context)
+
+        yield from self.stream_answer(prompt)
