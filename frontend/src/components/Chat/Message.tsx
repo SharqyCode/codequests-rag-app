@@ -13,8 +13,8 @@ export default function MessageItem({ message }: Props) {
       <div
         className={`inline-block px-4 py-2 rounded max-w-[70%] ${
           isUser
-            ? "bg-blue-500 text-white"
-            : "bg-gray-200 text-black"
+  ? "bg-zinc-100 text-zinc-900"
+  : "bg-zinc-900 border border-zinc-800 text-zinc-100"
         }`}
       >
         {message.text}

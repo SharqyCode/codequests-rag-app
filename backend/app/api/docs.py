@@ -6,6 +6,9 @@ router = APIRouter(prefix="/api/docs", tags=["Documents"])
 
 @router.get("/")
 def list_documents():
+    """
+    API endpoint to fetch a specific all stored documents.
+    """
     docs = vector_db.get_all_documents()
     print("docs api")
     return {"documents": docs}
