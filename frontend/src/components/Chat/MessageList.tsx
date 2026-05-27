@@ -16,15 +16,20 @@ export default function MessageList({ messages, loading }: Props) {
   }, [messages, loading])
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 ">
       {messages.map((msg, index) => (
         <MessageItem key={index} message={msg} />
       ))}
 
       {loading && (
-        <div className="text-left text-gray-500 italic animate-pulse">
-          AI is thinking...
-        </div>
+        <div className="
+  flex items-center gap-2
+  text-zinc-500 text-sm
+  animate-pulse
+">
+  <div className="w-2 h-2 rounded-full bg-zinc-500" />
+  Thinking...
+</div>
       )}
 
       <div ref={bottomRef} />

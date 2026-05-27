@@ -21,10 +21,23 @@ export default function ChatInput({ onSend, disabled }: Props) {
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="
+  flex items-center gap-3
+  bg-zinc-900
+  border border-zinc-800
+  rounded-2xl
+  p-2
+">
       <input
         type="text"
-        className="flex-1 border rounded px-3 py-2"
+        className="
+  flex-1
+  bg-transparent
+  outline-none
+  text-zinc-100
+  placeholder:text-zinc-500
+  px-2
+"
         placeholder="Ask something..."
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -35,7 +48,14 @@ export default function ChatInput({ onSend, disabled }: Props) {
       <button
         onClick={handleSubmit}
         disabled={disabled}
-        className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+        className="
+  bg-zinc-100
+  text-zinc-900
+  px-4 py-2
+  rounded-xl
+  hover:bg-white
+  disabled:opacity-50
+"
       >
         Send
       </button>

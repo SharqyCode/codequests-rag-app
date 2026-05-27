@@ -11,7 +11,7 @@ export default function DocumentItem({ document, onClick, isSelected }: Props) {
     <div
       onClick={onClick}
       className={`border p-3 rounded cursor-pointer ${
-      isSelected ? "bg-blue-100" : "hover:bg-gray-100"
+      isSelected ? "bg-gray-600" : "hover:bg-gray-700"
       }`}
     >
       <div className="font-medium">{document.source}</div>

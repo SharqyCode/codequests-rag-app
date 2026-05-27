@@ -12,10 +12,14 @@ export default function DocumentViewer({ document }: Props) {
       </div>
     )
   }
-
   return (
-    <div>
-      <h2 className="text-xl font-bold mb-2">
+    <div className="
+  bg-zinc-900
+  border border-zinc-800
+  rounded-2xl
+  p-6
+  shadow-sm">
+      <h2 className="text-3xl font-semibold tracking-tight">
         {document.source}
       </h2>
 

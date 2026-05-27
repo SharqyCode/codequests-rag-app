@@ -29,7 +29,13 @@ export default function UploadPage() {
   }
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
+    <div className="
+  bg-zinc-900
+  border border-zinc-800
+  rounded-2xl
+  p-6
+  shadow-sm
+">
       <h1 className="text-2xl font-bold mb-4">Upload Documents</h1>
 
       <FileUpload files={files} setFiles={setFiles} />
